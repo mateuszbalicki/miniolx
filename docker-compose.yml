@@ -1,0 +1,10 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: miniolx_postgres
+    environment:
+      POSTGRES_DB: miniolx_db
+      POSTGRES_USER: miniolx_user
+      POSTGRES_PASSWORD: supertajnehaslo
+    ports:
+      - "5432:5432"
