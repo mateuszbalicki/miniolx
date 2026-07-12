@@ -37,9 +37,6 @@ public class User {
     @CreatedDate
     private LocalDateTime creationDate;
 
-//    @LastModifiedBy
-//    private long lastModifiedBy;
-
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
 }
