@@ -8,3 +8,16 @@ services:
       POSTGRES_PASSWORD: supertajnehaslo
     ports:
       - "5432:5432"
+
+  localstack:
+    image: localstack/localstack:latest
+    container_name: miniolx_localstack
+    ports:
+      - "127.0.0.1:4566:4566"
+    environment:
+      - SERVICES=s3
+      - DEFAULT_REGION=eu-central-1
+      - AWS_ACCESS_KEY_ID=test-key
+      - AWS_SECRET_ACCESS_KEY=test-secret
+    volumes:
+      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"

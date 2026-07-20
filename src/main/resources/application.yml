@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: miniolx
+
+  # 1. Konfiguracja połączenia z bazą danych PostgreSQL
+  datasource:
+    url: jdbc:postgresql://localhost:5432/miniolx_db
+    username: miniolx_user
+    password: supertajnehaslo
+    driver-class-name: org.postgresql.Driver
+
+  # 2. Konfiguracja JPA / Hibernate
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update # Automatycznie tworzy/aktualizuje tabele na podstawie encji (dobre na start)
+    show-sql: true # Pokazuje zapytania SQL w konsoli (pomocne przy debugowaniu)
+    properties:
+      hibernate:
+        format_sql: true # Ładnie formatuje SQL w konsoli
+
+# 3. Nasza własna, dedykowana sekcja dla AWS / LocalStack
+aws:
+  region: eu-central-1
+  s3:
+    endpoint-url: http://localhost:4566 # Adres LocalStacka z docker-compose
+    bucket-name: miniolx-advertisement-images # Nazwa bucketu, którą wykorzystamy w kodzie
+  credentials:
+    access-key: test-key       # Dowolne ciągi znaków - LocalStack ich nie weryfikuje,
+    secret-key: test-secret    # ale AWS SDK wymaga, by nie były puste.
+
+# 4. Konfiguracja logowania (opcjonalnie, bardzo przydatna przy AWS)
+logging:
+  level:
+    root: INFO
+    software.amazon.awssdk: DEBUG # Pozwoli Ci zobaczyć w konsoli dokładne żądania idące do LocalStacka

@@ -11,6 +11,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 @Entity
 @Table(name = "ADVERTISEMENT")
@@ -29,10 +31,10 @@ public class Advertisement {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(name = "title", length=100, nullable=false, unique=false)
+    @Column(name = "title", length=100, nullable=false)
     private String title;
 
-    @Column(name = "description", length=2000, nullable=false, unique=false)
+    @Column(name = "description", length=2000, nullable=false)
     private String description;
 
     @Column(precision = 10, scale = 2)
@@ -41,11 +43,11 @@ public class Advertisement {
     @Enumerated(EnumType.STRING)
     private AdvertisementStatus status;
 
+    @OneToMany(mappedBy = "advertisement", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AdvertisementImage> images = new ArrayList<>();
+
     @CreatedDate
     private LocalDateTime creationDate;
-
-    @LastModifiedBy
-    private long lastModifiedBy;
 
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
